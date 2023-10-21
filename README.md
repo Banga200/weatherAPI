@@ -19,6 +19,7 @@ npm run build
 ```
 npm run lint
 ```
-
+### Install Nodejs 16.0.0 version 
+npm install node@16.0.0 --save-dev
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
