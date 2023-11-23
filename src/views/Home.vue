@@ -1,7 +1,8 @@
 <template>
   <div>
-    <v-layout row>
+    <v-layout>
       <v-flex xs10 sm8 md6 offset-sm-2 offset-xs1 offset-md3>
+        <!-- Error  -->
         <v-layout v-if="error">
           <v-flex xs8 offset-xs3>
             <v-alert dense color="red" type="error">
@@ -9,6 +10,7 @@
             </v-alert>
           </v-flex>
         </v-layout>
+        <!-- Textfiled  -->
         <v-form class="d-block d-sm-flex" @submit.prevent="getWeatherData">
           <v-text-field
             outlined
@@ -29,6 +31,7 @@
         </v-form>
       </v-flex>
     </v-layout>
+    <!-- Loading Spinner  -->
     <v-layout v-if="loading" class="mt-3">
       <v-flex xs12 class="text-center">
         <v-progress-circular
@@ -38,6 +41,7 @@
         ></v-progress-circular>
       </v-flex>
     </v-layout>
+    <!-- Weather Card -->
     <v-layout row class="mt-3" v-if="weatherIsEmpty">
       <v-flex
         xs11
@@ -46,7 +50,7 @@
         offset-sm-3
         md4
         offset-md-4
-        lg3
+        lg4
         offset-lg-4
         class="mt-3"
       >
@@ -98,6 +102,37 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <!-- Upcoming Days  -->
+    <h4 class="mt-5 text-center" v-if="weathers.forecast">
+      Upcoming for 3 Days
+    </h4>
+    <v-flex
+      row
+      class="text-center justify-center mt-3"
+      v-if="weathers.forecast"
+    >
+      <!-- Cards -->
+      <v-col
+        cols="6"
+        md="3"
+        v-for="(forecast, i) in weathers.forecast.forecastday"
+        :key="i"
+      >
+        <v-card>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-subtitle>{{
+                new Date(forecast.date).toDateString()
+              }}</v-list-item-subtitle>
+              <v-img :src="forecast.day.condition.icon" contain />
+              <v-list-item-subtitle>{{
+                forecast.day.condition.text
+              }}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card>
+      </v-col>
+    </v-flex>
   </div>
 </template>
 

@@ -25,8 +25,7 @@ export default new Vuex.Store({
       commit("setLoading", true);
       await axios
         .get(
-          "http://api.weatherapi.com/v1/current.json?key=8d983a242f4e482e803121409201911&q=" +
-            payload
+          `http://api.weatherapi.com/v1/forecast.json?key=8d983a242f4e482e803121409201911&q=${payload}&days=3`
         )
         .then(response => {
           console.log(response);
